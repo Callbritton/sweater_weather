@@ -14,9 +14,13 @@ describe 'Background' do
 
     expect(json[:data]).to have_key(:attributes)
     expect(json[:data][:attributes]).to be_an(Hash)
+    expect(json[:data][:attributes]).to have_key(:image_url)
+    expect(json[:data][:attributes][:image_url]).to be_an(String)
     expect(json[:data][:attributes]).to have_key(:location)
-    expect(json[:data][:attributes]).to be_an(String)
-    expect(json[:data][:attributes]).to have_key(:urls)
-    expect(json[:data][:attributes][:urls]).to be_an(Hash)
+    expect(json[:data][:attributes][:location]).to be_an(String)
+    expect(json[:data][:attributes]).to have_key(:description)
+    expect(json[:data][:attributes][:description]).to be_an(String)
+    expect(json[:data][:attributes]).to have_key(:credit)
+    expect(json[:data][:attributes][:credit]).to be_an(Hash)
   end
 end
