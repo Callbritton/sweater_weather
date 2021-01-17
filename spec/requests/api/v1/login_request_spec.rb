@@ -1,17 +1,19 @@
 require 'rails_helper'
 
 describe "Login" do
-  it "can log in a user" do
+  before :each do
     User.destroy_all
-    
-    User.create(email: "Chris@email.com",
-                password: "1234",
-                password_confirmation: "1234")
+  end
+
+  it "can log in a user" do
+    user = User.create(email: "Chris@email.com",
+                       password: "1234",
+                       password_confirmation: "1234")
 
     user_params = ({
-                    email: 'Chris@email.com',
-                    password: '1234',
-                    password_confirmation: '1234'
+                    email: "#{user.email}",
+                    password: "#{user.password}",
+                    password_confirmation: "#{user.password_confirmation}"
                   })
 
     headers = {"CONTENT_TYPE" => "application/json"}
@@ -35,5 +37,73 @@ describe "Login" do
     expect(parsed[:data][:attributes][:email]).to be_a(String)
     expect(parsed[:data][:attributes]).to have_key(:api_key)
     expect(parsed[:data][:attributes][:api_key]).to be_a(String)
+
+    expect(parsed[:data][:attributes][:email]).to eq(user.email)
+    expect(parsed[:data][:attributes][:api_key]).to eq(user.api_key)
+    expect(parsed[:data][:id].to_i).to eq(user.id)
+  end
+
+  it "fails to login without email present" do
+    user = User.create(email: "Chris@email.com",
+                       password: "1234",
+                       password_confirmation: "1234")
+
+    user_params = ({
+                    password: "#{user.password}",
+                    password_confirmation: "#{user.password_confirmation}"
+                  })
+
+    headers = {"CONTENT_TYPE" => "application/json"}
+
+    post "/api/v1/sessions", headers: headers, params: JSON.generate(user_params)
+
+    parsed = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
+    expect(parsed).to eq({:errors => "Bad Credentials"})
+  end
+
+  it "fails to login without password present" do
+    user = User.create(email: "Chris@email.com",
+                       password: "1234",
+                       password_confirmation: "1234")
+
+    user_params = ({
+                    email: "#{user.email}",
+                    password_confirmation: "#{user.password_confirmation}"
+                  })
+
+    headers = {"CONTENT_TYPE" => "application/json"}
+
+    post "/api/v1/sessions", headers: headers, params: JSON.generate(user_params)
+
+    parsed = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
+    expect(parsed).to eq({:errors => "Bad Credentials"})
+  end
+
+  it "fails to login if user enters incorrect password" do
+    user = User.create(email: "Chris@email.com",
+                       password: "1234",
+                       password_confirmation: "1234")
+
+    user_params = ({
+                    email: "#{user.email}",
+                    password: "wrongpassword",
+                    password_confirmation: "wrongpassword"
+                  })
+
+    headers = {"CONTENT_TYPE" => "application/json"}
+
+    post "/api/v1/sessions", headers: headers, params: JSON.generate(user_params)
+
+    parsed = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
+    expect(parsed).to eq({:errors => "Bad Credentials"})
   end
 end
