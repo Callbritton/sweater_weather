@@ -8,7 +8,7 @@ describe 'Road Trip' do
 
     trip_params = ({
                     origin: "Denver,CO",
-                    destination: "Pueblo,CO",
+                    destination: "Pueblo, CO",
                     api_key: "#{user.api_key}"
                   })
 
@@ -18,29 +18,27 @@ describe 'Road Trip' do
 
     expect(response).to be_successful
 
-    json = JSON.parse(response.body, symbolize_names: true)
+    parsed = JSON.parse(response.body, symbolize_names: true)
 
-    expect(json[:data]).to have_key(:id)
-    expect(json[:data][:id]).to eq(nil)
+    expect(parsed[:data]).to have_key(:id)
+    expect(parsed[:data][:id]).to eq(nil)
 
-    expect(json[:data]).to have_key(:type)
-    expect(json[:data][:type]).to eq("roadtrip")
+    expect(parsed[:data]).to have_key(:type)
+    expect(parsed[:data][:type]).to eq("roadtrip")
 
-    expect(json[:data]).to have_key(:attributes)
-    expect(json[:data][:attributes]).to be_an(Hash)
-    expect(json[:data][:attributes]).to have_key(:start_city)
-    expect(json[:data][:attributes][:start_city]).to be_an(String)
-    expect(json[:data][:attributes]).to have_key(:end_city)
-    expect(json[:data][:attributes][:end_city]).to be_an(String)
-    expect(json[:data][:attributes]).to have_key(:travel_time)
-    expect(json[:data][:attributes][:travel_time]).to be_an(String)
-    expect(json[:data][:attributes]).to have_key(:weather_at_eta)
-    expect(json[:data][:attributes][:weather_at_eta]).to be_an(Hash)
-    expect(json[:data][:attributes][:weather_at_eta]).to have_key(:temperature)
-    expect(json[:data][:attributes][:weather_at_eta][:temperature]).to be_an(String)
-    expect(json[:data][:attributes][:weather_at_eta]).to have_key(:conditions)
-    expect(json[:data][:attributes][:weather_at_eta]).to be_an(String)
-    expect(json[:data][:attributes][:weather_at_eta]).to have_key(:note)
-    expect(json[:data][:attributes][:weather_at_eta]).to be_an(String)
+    expect(parsed[:data]).to have_key(:attributes)
+    expect(parsed[:data][:attributes]).to be_an(Hash)
+    expect(parsed[:data][:attributes]).to have_key(:start_city)
+    expect(parsed[:data][:attributes][:start_city]).to be_an(String)
+    expect(parsed[:data][:attributes]).to have_key(:end_city)
+    expect(parsed[:data][:attributes][:end_city]).to be_an(String)
+    expect(parsed[:data][:attributes]).to have_key(:travel_time)
+    expect(parsed[:data][:attributes][:travel_time]).to be_an(String)
+    expect(parsed[:data][:attributes]).to have_key(:weather_at_eta)
+    expect(parsed[:data][:attributes][:weather_at_eta]).to be_an(Hash)
+    expect(parsed[:data][:attributes][:weather_at_eta]).to have_key(:temperature)
+    expect(parsed[:data][:attributes][:weather_at_eta][:temperature]).to be_an(Numeric)
+    expect(parsed[:data][:attributes][:weather_at_eta]).to have_key(:conditions)
+    expect(parsed[:data][:attributes][:weather_at_eta][:conditions]).to be_an(String)
   end
 end
