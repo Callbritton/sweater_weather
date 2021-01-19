@@ -5,6 +5,6 @@ class Api::V1::MunchiesController < ApplicationController
     food = params[:food]
 
     munchie = MunchiesFacade.get_munchies(origin, destination, food)
-
+    render json: MunchieSerializer.new(munchie)
   end
 end
