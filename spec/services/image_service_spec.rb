@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ImageService do
   context ".get_image_data" do
-    it "returns image data for a given location" do
+    it "returns image data for a given location", :vcr do
       location = "denver, co"
       image_data = ImageService.get_image_data(location)
 

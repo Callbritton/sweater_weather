@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe DailyWeather do
-  it "exists" do
+  it "exists", :vcr do
     coords = MapService.get_location_coords("denver, co")
     forecast_data = WeatherService.get_forecast_by_coords(coords)
     data = forecast_data[:daily][0..4].first

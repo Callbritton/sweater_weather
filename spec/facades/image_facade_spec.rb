@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ImageFacade do
   context ".get_image" do
-    it "creates an image object based on a given object" do
+    it "creates an image object based on a given object", :vcr do
       image = ImageFacade.get_image("denver, co")
       expect(image).to be_a(Image)
       expect(image.credit).to be_a(Hash)
