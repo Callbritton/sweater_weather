@@ -32,12 +32,30 @@ describe 'Background' do
     expect(json[:data][:attributes][:restaurant][:address]).to be_an(String)
   end
 
-  it "returns an error if part of the uri is missing" do
+  it "returns an error if the start location is missing" do
+    get '/api/v1/munchies?start=&end_location=pueblo,co&food=chinese'
+    expect(response).to_not be_successful
+    parsed = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response.status).to eq(400)
+    expect(parsed).to eq({:errors => "Missing start location"})
+  end
+
+  it "returns an error if the end location is missing" do
     get '/api/v1/munchies?start=denver,co&end_location=&food=chinese'
     expect(response).to_not be_successful
     parsed = JSON.parse(response.body, symbolize_names: true)
 
     expect(response.status).to eq(400)
-    expect(parsed).to eq({:errors => "Missing start or end location"})
+    expect(parsed).to eq({:errors => "Missing end location"})
+  end
+
+  it "returns an error if food choice is missing" do
+    get '/api/v1/munchies?start=denver,co&end_location=pueblo,co&food'
+    expect(response).to_not be_successful
+    parsed = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response.status).to eq(400)
+    expect(parsed).to eq({:errors => "Missing cuisine type"})
   end
 end
