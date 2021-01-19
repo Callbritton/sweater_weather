@@ -12,10 +12,10 @@ class RoadTripFacade
   private
 
   def self.confirmed_destination(route_data)
-    if route_data[:route][:legs] == nil || route_data[:route][:legs].empty?
+    if route_data[:route][:realTime] == nil
       0
     else
-      route_data[:route][:legs][0][:time]
+      route_data[:route][:realTime]
     end
   end
 
