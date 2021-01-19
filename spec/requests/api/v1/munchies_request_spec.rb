@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Background' do
   it "returns a business in a given city, estimated travel time, and current forecast of destination" do
-    get '/api/v1/munchies?start=denver,co&end=pueblo,co&food=chinese'
+    get '/api/v1/munchies?start=denver,co&end_location=pueblo,co&food=chinese'
     expect(response).to be_successful
     json = JSON.parse(response.body, symbolize_names: true)
 
