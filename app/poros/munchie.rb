@@ -13,7 +13,12 @@ class Munchie
     }
     @restaurant = {
       name: yelp_data[:businesses][0][:name],
-      address: yelp_data[:businesses][0][:location][:address1]
+      address: address(yelp_data)
     }
+  end
+
+  def address(yelp_data)
+    location = yelp_data[:businesses][0][:location]
+    "#{location[:address1]} #{location[:address2]} #{location[:city]} #{location[:state]}, #{location[:zip_code]}"
   end
 end
