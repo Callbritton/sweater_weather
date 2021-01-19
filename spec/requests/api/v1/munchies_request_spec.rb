@@ -23,7 +23,7 @@ describe 'Background' do
     expect(json[:data][:attributes][:forecast]).to have_key(:summary)
     expect(json[:data][:attributes][:forecast][:summary]).to be_an(String)
     expect(json[:data][:attributes][:forecast]).to have_key(:temperature)
-    expect(json[:data][:attributes][:forecast][:temperature]).to be_an(String)
+    expect(json[:data][:attributes][:forecast][:temperature]).to be_an(Numeric)
     expect(json[:data][:attributes]).to have_key(:restaurant)
     expect(json[:data][:attributes][:restaurant]).to be_an(Hash)
     expect(json[:data][:attributes][:restaurant]).to have_key(:name)
