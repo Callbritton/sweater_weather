@@ -13,7 +13,7 @@ describe "Registration" do
     post "/api/v1/users", headers: headers, params: JSON.generate(user_params)
 
     expect(response).to be_successful
-    expect(response.status).to eq(201) # 201 is the code for Created
+    expect(response.status).to eq(201)
 
     parsed = JSON.parse(response.body, symbolize_names: true)
 
@@ -45,6 +45,21 @@ describe "Registration" do
     post "/api/v1/users", headers: headers, params: JSON.generate(user_params)
 
     expect(response).to_not be_successful
-    expect(response.status).to eq(401) # 401 is the code for failure to authenticate
+    expect(response.status).to eq(401)
+  end
+
+  it "receives a 401 error if required params are incorrect" do
+    user_params = ({
+                    email: 'Chris@email.com',
+                    password: '1234',
+                    password_confirmation: '123'
+                  })
+
+    headers = {"CONTENT_TYPE" => "application/json"}
+
+    post "/api/v1/users", headers: headers, params: JSON.generate(user_params)
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(401)
   end
 end
