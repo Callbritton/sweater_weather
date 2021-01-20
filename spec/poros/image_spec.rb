@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Image do
-  it "exists" do
+  it "exists", :vcr do
     location = "denver, co"
     image_data = ImageService.get_image_data(location)
     image = Image.new(image_data, location)

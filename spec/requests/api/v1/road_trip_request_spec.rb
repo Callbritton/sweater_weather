@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Road Trip' do
-  it "returns a given location's current, daily, and hourly forecasts" do
+  it "returns a given location's current, daily, and hourly forecasts", :vcr do
     user = User.create(email: "Chris@email.com",
                        password: "1234",
                        password_confirmation: "1234")
@@ -79,7 +79,7 @@ describe 'Road Trip' do
     expect(response.status).to eq(401)
   end
 
-  it "returns impossible route when route is not possible" do
+  it "returns impossible route when route is not possible", :vcr do
       user = User.create(email: "Chris@email.com",
                   password: "1234",
                   password_confirmation: "1234")

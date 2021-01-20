@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe CurrentWeather do
-  it "exists" do
+  it "exists", :vcr do
     coords = MapService.get_location_coords("denver, co")
     forecast_data = WeatherService.get_forecast_by_coords(coords)
     current_weather = CurrentWeather.new(forecast_data[:current])

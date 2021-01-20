@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe WeatherService do
   context ".get_forecast_by_coords" do
-    it "returns forecast information for the given coords" do
+    it "returns forecast information for the given coords", :vcr do
       coords = MapService.get_location_coords("denver, co")
       weather_service = WeatherService.get_forecast_by_coords(coords)
 

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Forecast' do
-  it "returns a given location's current, daily, and hourly forecasts" do
+  it "returns a given location's current, daily, and hourly forecasts", :vcr do
     get '/api/v1/forecast?location=denver,co'
     expect(response).to be_successful
     json = JSON.parse(response.body, symbolize_names: true)

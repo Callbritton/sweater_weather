@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe RoadTrip do
-  it "exists" do
+  it "exists", :vcr do
     origin = "denver, co"
     destination = "pueblo, co"
     route_data = MapService.get_route_data(origin, destination)

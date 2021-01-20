@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe RoadTripFacade do
   context ".get_road_trip" do
-    it "creates a road trip object based on given origins and destinations" do
+    it "creates a road trip object based on given origins and destinations", :vcr do
       road_trip = RoadTripFacade.get_road_trip("denver, co", "pueblo, co")
       expect(road_trip).to be_a(RoadTrip)
       expect(road_trip.start_city).to be_a(String)
