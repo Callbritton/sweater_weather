@@ -1,6 +1,6 @@
 ## About This Project:
 
-[Sweater Weather](https://github.com/Callbritton/sweater_weather) is an API based application that consumes multiple APIs, aggregates their data, and returns JSON to be exposed for a hypothetical front end.
+[Sweater Weather](https://github.com/Callbritton/sweater_weather) is an API based application that consumes multiple APIs, aggregates their data, and returns JSON to be exposed by a hypothetical front end.
 
 ## Table of Contents
 * [Local Setup](https://github.com/Callbritton/sweater_weather/blob/main/README.md#local-setup-)
