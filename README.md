@@ -37,7 +37,8 @@ This project requires:
   * [Unsplash](https://unsplash.com/)
   * [Mapquest](https://developer.mapquest.com/)
 
-* Install Figaro with `bundle exec figaro install` to create an application.yml file locally (this is where you will store your ENV variables and api_keys)
+* Install Figaro with `bundle exec figaro install` 
+* This will create an application.yml file locally which is where you will store your ENV variables and api_keys
 
 * Set your ENV variables in the application.yml file:
   * `WEATHER_API_KEY: "<your api key>"`
